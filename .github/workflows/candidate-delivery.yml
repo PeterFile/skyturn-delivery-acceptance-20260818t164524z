@@ -1,0 +1,20 @@
+name: Candidate delivery
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-delivery:
+    name: Candidate delivery
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify exact pull request event
+        shell: bash
+        run: |
+          test "${{ github.event_name }}" = "pull_request"
+          test -n "${{ github.event.pull_request.head.sha }}"
